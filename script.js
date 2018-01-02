@@ -1,6 +1,8 @@
 var express = require('express');
 var mysql = require('mysql');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 var app = express();
 var connection = mysql.createPool({
     connectionLimit:50,
@@ -10,6 +12,14 @@ var connection = mysql.createPool({
     password:'',
     database:'hw'
 });
+
+
+//app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,4 +66,4 @@ app.post('/add', function(req, res){
         }
     })
 })
-app.listen(3000);
+app.listen(3001);
